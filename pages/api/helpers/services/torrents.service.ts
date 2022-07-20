@@ -5,7 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 const rutracker = new RutrackerApi();
 
-const authOptions = { username: process.env.RTUSERNAE, password: process.env.RTPASSWORD };
+const authOptions = { username: process.env.RT_USERNAME, password: process.env.RT_PASSWORD };
 
 class TorrentsService {
     async search(q:string) {

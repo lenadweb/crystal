@@ -12,6 +12,6 @@ export default async function handler(
         return res.json(result);
     } catch (err) {
         console.log(err);
-        return res.status(403).json([]);
+        return res.status(403).json(err);
     }
 }
