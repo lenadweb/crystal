@@ -1,3 +1,124 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "unused-imports",
+    "react-hooks"
+  ],
+  "rules": {
+    "no-use-before-define": "off",
+    "no-unused-vars": "off", // or "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "import/no-unresolved": "off",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ],
+    "react/destructuring-assignment": "off",
+    "react/function-component-definition": "off",
+    "no-unused-expressions": "off",
+    "import/no-cycle": "off",
+    "react/no-unstable-nested-components": [
+      "warn",
+      { "allowAsProps": true }
+    ],
+    "@typescript-eslint/no-use-before-define": [
+      "error"
+    ],
+    "react/no-array-index-key": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "no-param-reassign": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "max-len": [
+      "warn",
+      {
+        "code": 150
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "class-methods-use-this": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/require-default-props": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "max-len": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "import/prefer-default-export": "off",
+    "react/prop-types": "off",
+    "object-curly-newline": "off",
+    "indent": [
+      "error",
+      4
+    ],
+    "react/jsx-indent": [
+      "error",
+      4
+    ],
+    "react/jsx-indent-props": [
+      "error",
+      4
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx",
+          ".css",
+          ".scss",
+          "*.module.css",
+          "*.module.scss"
+        ],
+        "paths": [
+          "./src"
+        ]
+      }
+    }
+  }
 }

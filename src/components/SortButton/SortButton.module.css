@@ -1,0 +1,37 @@
+.button {
+    display: flex;
+    align-items: center;
+    background: none;
+    outline: none;
+    border: none;
+    text-align: initial;
+    cursor: pointer;
+}
+
+.button:active {
+    outline: none;
+    border: none;
+}
+
+.button:after {
+    content: "";
+    margin-left: 12px;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    transform: rotate(180deg);
+    width: 10px;
+    height: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('/assets/icons/arrow.svg');
+}
+
+.buttonAsc:after {
+    opacity: 1;
+}
+
+.buttonDesc:after {
+    opacity: 1;
+    transform: rotate(0deg)
+}
+

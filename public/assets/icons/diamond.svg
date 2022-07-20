@@ -1,0 +1,44 @@
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="512"
+        height="512"
+        enableBackground="new 0 0 512 512"
+        viewBox="0 0 512 512"
+>
+    <path
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#00c3ff"
+            d="M406.069 52.966L105.931 52.966 0 158.897 256 459.034 512 158.897z"
+            data-original="#00c3ff"
+    ></path>
+    <path
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#87daff"
+            d="M406.069 52.966L256 459.034 512 158.897z"
+            data-original="#87daff"
+    ></path>
+    <path
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#00aaf0"
+            d="M105.931 52.966L145.084 158.897 0 158.897z"
+            data-original="#00aaf0"
+    ></path>
+    <path
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#87daff"
+            d="M256 52.966L145.084 158.897 366.916 158.897z"
+            data-original="#87daff"
+    ></path>
+    <path
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#a5e9ff"
+            d="M366.916 158.897L512 158.897 406.069 52.966z"
+            data-original="#a5e9ff"
+    ></path>
+    <path
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#0096dc"
+            d="M0 158.897L145.084 158.897 256 459.034z"
+            data-original="#0096dc"
+    ></path>
+</svg>

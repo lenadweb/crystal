@@ -1,0 +1,9 @@
+.wrapper {
+    position: fixed;
+    right: 100px;
+    bottom: 30px;
+    background: #232323;
+    border-radius: 10px;
+    padding: 24px;
+    z-index: 5;
+}

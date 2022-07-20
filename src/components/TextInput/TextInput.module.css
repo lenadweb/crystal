@@ -1,0 +1,48 @@
+.wrapper {
+    color: #000000;
+    margin: 0 auto;
+    display: flex;
+    background-color: white;
+    border-color: #ececec;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.1s ease-in;
+    outline: none;
+    overflow: hidden;
+    padding: 8px;
+}
+
+.textInput {
+    flex-basis: 100%;
+    color: inherit;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+    line-height: 1;
+    min-height: 34px;
+}
+
+.searchIcon {
+    margin: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+.wrapperFocus {
+    /*border-color: #3284e4;*/
+    background-color: #f8fafd;
+}
+
+.wrapperDark {
+    color: #ffffff;
+    background-color: #232323;
+    border-color: #181818;
+}
