@@ -14,7 +14,7 @@ class TApi {
                 url: `/api/torrents/search?q=${q}`,
                 method: 'GET',
             });
-            return result as any;
+            return result?.data as any;
         } catch (e) {
             console.log(e);
             return [];
