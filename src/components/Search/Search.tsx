@@ -14,17 +14,17 @@ const Search = () => {
     const [inputValue, setInputValue] = useState('');
     const debouncedValue = useDebounce(inputValue, 500);
     const { data, isLoading } = useSearch(debouncedValue);
+    const isResultVisible = !!data.length && !isLoading && !!inputValue.length;
     return (
         <div className={styles.wrapper}>
             <TextInput value={inputValue} onChange={setInputValue} />
             <AnimatePresence>
-                {!!data.length && !isLoading && (
+                {isResultVisible && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                     >
-
                         <SearchResult data={data} />
                     </motion.div>
                 )}

@@ -9,15 +9,15 @@ import ToggleTheme from '../src/components/ToggleTheme/ToggleTheme';
 export const RootContext = createContext({
     isLoading: false,
     setLoading: null,
-    isLightTheme: false,
+    isLightTheme: true,
 } as any);
 
 const PageContent:FC = memo(() => {
     const [isLoading, setLoading] = useState(false);
-    const [isLightTheme, setLightTheme] = useState(false);
+    const [isLightTheme, setLightTheme] = useState(true);
 
     useEffect(() => {
-        const sessionTheme = (typeof window !== 'undefined') ? localStorage.getItem('theme') === 'light' : false;
+        const sessionTheme = (typeof window !== 'undefined') ? localStorage.getItem('theme') === 'light' : true;
         setLightTheme(sessionTheme);
     }, []);
 
