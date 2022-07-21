@@ -78,17 +78,37 @@ class Parser {
         });
 
         collapsesRT.each(function () {
-            collapses.push({
-                header: $(this)
-                    .find('.sp-head')
-                    .first()
-                    .text()
-                    .trim(),
-                content: $(this)
-                    .find('.sp-body')
-                    .first()
-                    .html(),
-            });
+            const content = $(this).find('.sp-body').first();
+            const postLinks = content.find('.postLink>var');
+            const images = [];
+            const header = $(this).find('.sp-head').first().text()
+                .trim();
+            let text = '';
+
+            if (postLinks.length > 0) {
+                postLinks.each(function () {
+                    images.push($(this).attr('title'));
+                });
+            }
+
+            if (header === 'MediaInfo') {
+                text = content.find('.c-body').first().html().split('<br>')
+                    .join('');
+            } else {
+                text = content.html();
+            }
+
+            const excludeHeaders = ['Последние поблагодарившие'];
+
+            if (!excludeHeaders.includes(header)) {
+                collapses.push({
+                    header,
+                    content: {
+                        text: images.length > 0 ? null : text,
+                        images,
+                    },
+                });
+            }
         });
 
         return {

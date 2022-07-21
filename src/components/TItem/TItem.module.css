@@ -12,6 +12,10 @@
     cursor: pointer;
 }
 
+.wrapper > * {
+    overflow: hidden;
+}
+
 .wrapperDark {
     background-color: #232323;
 }

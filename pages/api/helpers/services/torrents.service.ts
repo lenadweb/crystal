@@ -10,7 +10,7 @@ class TorrentsService {
     async search(q:string) {
         const login = await rutracker.login(authOptions);
         if (login) {
-            const resultSearch = await rutracker.search({ query: q, sort: 'size' } as any);
+            const resultSearch = await rutracker.search({ query: q, sort: 'seeds' } as any);
             return resultSearch;
         }
         return {

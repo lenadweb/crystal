@@ -8,6 +8,7 @@ import { RootContext } from '../../../pages';
 import Spinner from '../../Icons/Spinner';
 import CloseIcon from '../../Icons/CloseIcon';
 import { useTheme } from '../../hooks/useTheme';
+import Accordion from '../Accordion/Accordion';
 
 interface IDetails {
     id: string | undefined;
@@ -55,24 +56,10 @@ const Details:FC<IDetails> = memo(({ id }) => {
                             className={cn(styles.container, {
                                 [styles.containerLight]: isLightTheme,
                             })}
-                            initial={{
-                                opacity: 0,
-                                y: '-7rem',
-                                scale: 0.92,
-                            }}
-                            animate={{
-                                opacity: 1,
-                                y: '0rem',
-                                scale: 1,
-                            }}
-                            exit={{
-                                opacity: 0,
-                                y: '7rem',
-                                scale: 0.92,
-                            }}
-                            transition={{
-                                duration: 0.3,
-                            }}
+                            initial={{ opacity: 0, y: '-7rem', scale: 0.92 }}
+                            animate={{ opacity: 1, y: '0rem', scale: 1 }}
+                            exit={{ opacity: 0, y: '7rem', scale: 0.92 }}
+                            transition={{ duration: 0.3 }}
                             ref={ref}
                         >
                             <div className={cn(styles.scroll, {
@@ -86,15 +73,10 @@ const Details:FC<IDetails> = memo(({ id }) => {
                                         </div>
                                     ) : (
                                         <motion.div
-                                            initial={{
-                                                opacity: 0,
-                                            }}
-                                            animate={{
-                                                opacity: [0, 1],
-                                            }}
-                                            transition={{
-                                                duration: 0.15,
-                                            }}
+                                            className={styles.description}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: [0, 1] }}
+                                            transition={{ duration: 0.15 }}
                                         >
                                             {
                                                 !!data?.description?.length && (
@@ -104,11 +86,13 @@ const Details:FC<IDetails> = memo(({ id }) => {
                                                     />
                                                 )
                                             }
+                                            {
+                                                data?.collapses?.map((item: any) => <Accordion header={item.header} content={item.content} />)
+                                            }
                                         </motion.div>
                                     )
                                 }
                             </div>
-
                             <button className={styles.close} type="button" onClick={toggleExpanded.off}>
                                 <CloseIcon fill="#b0b0b0" />
                             </button>

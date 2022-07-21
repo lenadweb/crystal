@@ -63,3 +63,23 @@
     height: 14px;
     cursor: pointer;
 }
+
+.description {
+    padding-bottom: 260px;
+}
+
+
+@media(max-width: 540px) {
+    .container {
+        width: 100vw;
+        border-radius: 0;
+    }
+
+    .scroll {
+        overflow: auto;
+        min-width: 100%;
+        height: calc(100vh - 72px);
+        max-height: calc(100vh - 72px);
+    }
+}
+
