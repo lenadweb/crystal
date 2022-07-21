@@ -6,11 +6,12 @@ interface ISortButton {
     label: string;
     direction?: 'DESC' | 'ASC' | null;
     onClick: () => void;
+    className?: string;
 }
 
-const SortButton:FC<ISortButton> = ({ label, direction, onClick }) => (
+const SortButton:FC<ISortButton> = ({ label, direction, onClick, className = null }) => (
     <button
-        className={cn(styles.button, {
+        className={cn(styles.button, className, {
             [styles.buttonDesc]: direction === 'DESC',
             [styles.buttonAsc]: direction === 'ASC',
         })}

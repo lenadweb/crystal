@@ -1,0 +1,17 @@
+
+.btn {
+    outline: none;
+    border: none;
+    background: none;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btnIcon {
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    backrepeat: no-repeat;
+    /*background-image: url('/assets/icons/download.svg');*/
+}

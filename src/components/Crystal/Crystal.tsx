@@ -5,29 +5,24 @@ import { useContext, useRef } from 'react';
 import styles from './Crystal.module.css';
 import { RootContext } from '../../../pages';
 
-const variants = {
-    default: {},
-    loading: {
-        y: ['30px', '0px'],
-    },
-};
-
 const Crystal = () => {
     const container = useRef(null);
     const { isLoading } = useContext(RootContext);
+    console.log(isLoading);
     return (
         <div ref={container} className={styles.wrapper}>
             <motion.div
-                transition={{
+                transition={isLoading ? {
                     duration: 0.25,
                     yoyo: Infinity,
                     ease: 'easeInOut',
-                }}
+                } : undefined}
                 initial={{
                     y: '30px',
                 }}
-                variants={variants}
-                animate={isLoading ? 'loading' : 'default'}
+                animate={isLoading ? {
+                    y: ['30px', '0px'],
+                } : undefined}
             >
                 <div>
                     <motion.div

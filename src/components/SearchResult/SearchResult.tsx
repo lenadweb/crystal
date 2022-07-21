@@ -51,7 +51,7 @@ const SearchResult:FC<ISearchResult> = ({ data }) => {
             })}
             >
                 <SortButton onClick={() => onChangeSortTarget('title')} label="Название" direction={sortTarget === 'title' ? orderDirections : undefined} />
-                <SortButton onClick={() => onChangeSortTarget('category')} label="Категория" direction={sortTarget === 'category' ? orderDirections : undefined} />
+                <SortButton className={TItemStyles.category} onClick={() => onChangeSortTarget('category')} label="Категория" direction={sortTarget === 'category' ? orderDirections : undefined} />
                 <SortButton onClick={() => onChangeSortTarget('size')} label="Размер" direction={sortTarget === 'size' ? orderDirections : undefined} />
                 <SortButton onClick={() => onChangeSortTarget('seeds')} label="Сиды" direction={sortTarget === 'seeds' ? orderDirections : undefined} />
             </div>
@@ -61,7 +61,15 @@ const SearchResult:FC<ISearchResult> = ({ data }) => {
                         key={item.id}
                         layout
                     >
-                        <TItem item={item} delay={index} light={isLightTheme} />
+                        <TItem
+                            id={item.id}
+                            title={item.title}
+                            category={item.category}
+                            seeds={item.seeds}
+                            size={item.size}
+                            delay={index}
+                            light={isLightTheme}
+                        />
                     </motion.div>
                 ))
             }

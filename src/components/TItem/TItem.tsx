@@ -1,17 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import prettyBytes from 'pretty-bytes';
 import { motion } from 'framer-motion';
 import cn from 'classnames';
-import { TorrentItem } from '../../types/api';
 import styles from './TItem.module.css';
+import DownloadButton from '../DownloadButton/DownloadButton';
 
 interface ITItem {
-    item: TorrentItem;
+    id: string;
+    title: string;
+    seeds: number;
+    category: string;
+    size: number;
     delay: number;
     light?: boolean,
 }
 
-const TItem:FC<ITItem> = ({ item, delay, light = true }) => (
+const TItem:FC<ITItem> = memo(({ id, title, seeds, category, size, delay, light = true }) => (
     <motion.div
         transition={{
             x: {
@@ -36,13 +40,13 @@ const TItem:FC<ITItem> = ({ item, delay, light = true }) => (
             [styles.wrapperDark]: !light,
         })}
         >
-            <div>{item.title}</div>
-            <div>{item.category}</div>
-            <div className={styles.center}>{prettyBytes(item.size)}</div>
-            <div className={styles.center}>{item.seeds}</div>
-            <div className={styles.center}>c</div>
+            <div>{title}</div>
+            <div className={styles.category}>{category}</div>
+            <div className={styles.center}>{prettyBytes(size)}</div>
+            <div className={styles.center}>{seeds}</div>
+            <DownloadButton id={id} title={title} />
         </div>
     </motion.div>
-);
+));
 
 export default TItem;

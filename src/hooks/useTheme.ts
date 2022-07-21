@@ -6,8 +6,11 @@ export function useTheme() {
 
     const result = useMemo(() => ({
         isLightTheme,
-        toggleTheme: () => setLightTheme(!isLightTheme),
-    }), [isLightTheme]);
+        toggleTheme: () => {
+            localStorage.setItem('theme', isLightTheme ? 'dark' : 'light');
+            setLightTheme(!isLightTheme);
+        },
+    }), [setLightTheme, isLightTheme]);
 
     return result;
 }

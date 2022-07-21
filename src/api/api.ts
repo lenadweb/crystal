@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { TorrentItem } from '../types/api';
+import { downloadFile } from '../utils';
 
 class TApi {
     // async search(q: string): Promise<TorrentItem[]> {
     //     return new Promise((resolve, reject) => {
-    //         setTimeout(() => resolve(getSearchByQuery), 1500);
+    //         setTimeout(() => resolve(getSearchByQuery), Math.random() * 6000);
     //     });
     // }
 
@@ -15,6 +16,22 @@ class TApi {
                 method: 'GET',
             });
             return result?.data as any;
+        } catch (e) {
+            console.log(e);
+            return [];
+        }
+    }
+
+    async download(id: string, title: string) {
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: `/api/torrents/download?id=${id}`,
+                responseType: 'blob',
+            });
+            const urlDownload = window.URL.createObjectURL(new Blob([response.data]));
+            downloadFile(urlDownload, `${title}.torrent`);
+            return null;
         } catch (e) {
             console.log(e);
             return [];
