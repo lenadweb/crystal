@@ -1,7 +1,6 @@
-// @ts-ignore
-import RutrackerApi from 'rutracker-api';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
+import RutrackerApi from '../fork-rutracker-api';
 
 const rutracker = new RutrackerApi();
 
@@ -11,7 +10,7 @@ class TorrentsService {
     async search(q:string) {
         const login = await rutracker.login(authOptions);
         if (login) {
-            const resultSearch = await rutracker.search({ query: q, sort: 'size' });
+            const resultSearch = await rutracker.search({ query: q, sort: 'size' } as any);
             return resultSearch;
         }
         return {
@@ -45,7 +44,7 @@ class TorrentsService {
                         'Accept-language': 'en',
                     },
                     responseType: 'stream',
-                });
+                } as any);
                 result.data.pipe(res);
             } else {
                 res.json({

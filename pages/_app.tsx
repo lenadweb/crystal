@@ -11,6 +11,7 @@ function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
+                <title>Crystal | Simple search engine</title>
                 <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0" />
             </Head>
             {/* @ts-ignore */}

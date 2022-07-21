@@ -60,6 +60,15 @@ table {
 .post-b {
   font-weight: bold;
 }
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 
 @media (max-width: 768px) {
   body {
