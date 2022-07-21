@@ -8,7 +8,6 @@ import { RootContext } from '../../../pages';
 const Crystal = () => {
     const container = useRef(null);
     const { isLoading } = useContext(RootContext);
-    console.log(isLoading);
     return (
         <div ref={container} className={styles.wrapper}>
             <motion.div

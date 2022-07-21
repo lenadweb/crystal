@@ -16,6 +16,7 @@
     "pretty-bytes": "^6.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-yandex-metrika": "^2.6.0",
     "rutracker-api": "^1.1.2"
   },
   "devDependencies": {
