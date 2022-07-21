@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react';
+import React, { FC, memo, MouseEventHandler, useState } from 'react';
 import styles from './DownloadButton.module.css';
 import TApi from '../../api/api';
 import { useTheme } from '../../hooks/useTheme';
@@ -15,10 +15,15 @@ const DownloadButton:FC<IDownloadingButton> = memo(({ id, title }) => {
     const { isLightTheme } = useTheme();
     const iconFill = isLightTheme ? '#777777' : '#ececec';
 
-    const onClickHandler = async () => {
+    const download = async () => {
         setDownloading(true);
         await TApi.download(id, title);
         setDownloading(false);
+    };
+
+    const onClickHandler:MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.stopPropagation();
+        download();
     };
 
     return (

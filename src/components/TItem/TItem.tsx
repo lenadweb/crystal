@@ -1,9 +1,10 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useCallback, useContext } from 'react';
 import prettyBytes from 'pretty-bytes';
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 import styles from './TItem.module.css';
 import DownloadButton from '../DownloadButton/DownloadButton';
+import { RootContext } from '../../../pages';
 
 interface ITItem {
     id: string;
@@ -15,38 +16,50 @@ interface ITItem {
     light?: boolean,
 }
 
-const TItem:FC<ITItem> = memo(({ id, title, seeds, category, size, delay, light = true }) => (
-    <motion.div
-        transition={{
-            x: {
-                duration: 0.4,
-                ease: 'easeInOut',
-            },
-            y: {
-                duration: 0.1,
-                ease: 'easeInOut',
-            },
-            delay: delay / 12,
-        }}
-        initial={{
-            x: '25rem',
-        }}
-        animate={{
-            x: ['25rem', '0rem'],
-            opacity: [0, 1],
-        }}
-    >
-        <div className={cn(styles.wrapper, {
-            [styles.wrapperDark]: !light,
-        })}
+export const openSpring = { type: 'spring', stiffness: 200, damping: 30 };
+export const closeSpring = { type: 'spring', stiffness: 300, damping: 35 };
+
+const TItem:FC<ITItem> = memo(({ id, title, seeds, category, size, delay, light = true }) => {
+    const { expandedItemId, setExpandedItemId } = useContext(RootContext);
+    // const isExpanded = expandedItemId === id;
+    const openItem = useCallback(() => setExpandedItemId(id), []);
+
+    return (
+        <motion.div
+            layoutId={id}
+            transition={{
+                x: {
+                    duration: 0.4,
+                    ease: 'easeInOut',
+                },
+                y: {
+                    duration: 0.1,
+                    ease: 'easeInOut',
+                },
+                delay: delay / 12,
+            }}
+            initial={{
+                x: '25rem',
+            }}
+            animate={{
+                x: ['25rem', '0rem'],
+                opacity: [0, 1],
+            }}
         >
-            <div>{title}</div>
-            <div className={styles.category}>{category}</div>
-            <div className={styles.center}>{prettyBytes(size)}</div>
-            <div className={styles.center}>{seeds}</div>
-            <DownloadButton id={id} title={title} />
-        </div>
-    </motion.div>
-));
+            <div
+                className={cn(styles.wrapper, {
+                    [styles.wrapperDark]: !light,
+                })}
+                onClick={openItem}
+            >
+                <div>{title}</div>
+                <div className={styles.category}>{category}</div>
+                <div className={styles.center}>{prettyBytes(size)}</div>
+                <div className={styles.center}>{seeds}</div>
+                <DownloadButton id={id} title={title} />
+            </div>
+        </motion.div>
+    );
+});
 
 export default TItem;

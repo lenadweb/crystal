@@ -22,6 +22,19 @@ class TApi {
         }
     }
 
+    async description(id: string): Promise<TorrentItem[]> {
+        try {
+            const result = await axios({
+                url: `/api/torrents/description?id=${id}`,
+                method: 'GET',
+            });
+            return result?.data as any;
+        } catch (e) {
+            console.log(e);
+            return [];
+        }
+    }
+
     async download(id: string, title: string) {
         try {
             const response = await axios({

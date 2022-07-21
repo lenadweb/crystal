@@ -19,6 +19,17 @@ class TorrentsService {
         };
     }
 
+    async description(id: string) {
+        const login = await rutracker.login(authOptions);
+        if (login) {
+            const resultSearch = await rutracker.description({ id });
+            return resultSearch;
+        }
+        return {
+            error: 'auth error',
+        };
+    }
+
     async download(req: NextApiRequest, res: NextApiResponse) {
         try {
             const {

@@ -1,0 +1,65 @@
+.wrapper {
+    display: flex;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.51);
+}
+
+.container {
+    border-radius: 16px;
+    background: #232323;
+    padding: 36px;
+    line-height: 1.5;
+    white-space: pre-line;
+    position: relative;
+}
+
+.containerLight {
+    background: #d9d9d9;
+    color: #181818;
+}
+
+.scrollLoading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    height: 36px;
+    width: 36px;
+}
+
+.scroll {
+    overflow: auto;
+    width: 60vw;
+    max-width: 60vw;
+    height: 60vh;
+    max-height: 60vh;
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.close {
+    position: absolute;
+    display: block;
+    right: 24px;
+    top: 24px;
+    background: none;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}

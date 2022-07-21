@@ -5,6 +5,7 @@ import Search from '../src/components/Search/Search';
 import Crystal from '../src/components/Crystal/Crystal';
 import ButtonToTop from '../src/components/ButtonToTop/ButtonToTop';
 import ToggleTheme from '../src/components/ToggleTheme/ToggleTheme';
+import Details from '../src/components/Details/Details';
 
 export const RootContext = createContext({
     isLoading: false,
@@ -15,6 +16,7 @@ export const RootContext = createContext({
 const PageContent:FC = memo(() => {
     const [isLoading, setLoading] = useState(false);
     const [isLightTheme, setLightTheme] = useState(true);
+    const [expandedItemId, setExpandedItemId] = useState();
 
     useEffect(() => {
         const sessionTheme = (typeof window !== 'undefined') ? localStorage.getItem('theme') === 'light' : true;
@@ -26,7 +28,9 @@ const PageContent:FC = memo(() => {
         setLoading,
         isLightTheme,
         setLightTheme,
-    }), [isLoading, isLightTheme]);
+        expandedItemId,
+        setExpandedItemId,
+    }), [isLoading, expandedItemId, isLightTheme]);
 
     return (
         <div className={styles.wrapper}>
@@ -35,6 +39,7 @@ const PageContent:FC = memo(() => {
                     <ToggleTheme />
                     <Crystal />
                     <Search />
+                    <Details id={expandedItemId} />
                     <ButtonToTop />
                 </RootContext.Provider>
             </div>

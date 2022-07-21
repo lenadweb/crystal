@@ -10,6 +10,7 @@
 }
 
 .button {
+    cursor: pointer;
     /*background: #ffffff;*/
     background: none;
     border-radius: 50%;

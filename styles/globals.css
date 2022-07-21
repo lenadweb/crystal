@@ -18,7 +18,7 @@ time, mark, audio, video {
   font: inherit;
   color: inherit;
   scroll-behavior: smooth;
-
+  box-sizing: border-box;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -49,6 +49,16 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+.post-br {
+  line-height: 8px;
+  display: block;
+  visibility: hidden;
+}
+
+.post-b {
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {
