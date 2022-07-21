@@ -5,6 +5,7 @@ import { RootContext } from '../../pages';
 
 export function useSearch(q: string) {
     const [result, setResult] = useState<TorrentItem[]>([]);
+    const [isComplete, setComplete] = useState(false);
     const { setLoading, isLoading } = useContext(RootContext);
 
     const search = async (q: string) => {
@@ -12,10 +13,11 @@ export function useSearch(q: string) {
         const response = await TApi.search(q);
         setResult(response);
         setLoading(false);
+        setComplete(true);
     };
 
     useEffect(() => {
-        if (q.length > 1) {
+        if (q.length > 0) {
             search(q);
         }
     }, [q]);
@@ -23,5 +25,6 @@ export function useSearch(q: string) {
     return {
         data: result,
         isLoading,
+        isComplete,
     };
 }
