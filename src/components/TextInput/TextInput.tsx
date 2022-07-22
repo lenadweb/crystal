@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, KeyboardEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
     motion,
 } from 'framer-motion';
@@ -27,14 +27,24 @@ const TextInput: FC<ITextInput> = ({ value, onChange }) => {
         scrollToTop();
     };
 
+    useEffect(() => {
+        const inputFocus = () => ref.current?.focus();
+        window.addEventListener('keydown', inputFocus);
+        return () => window.removeEventListener('keydown', inputFocus);
+    }, [ref]);
+
+    const onKeyDownHandler:KeyboardEventHandler<HTMLInputElement> = (e) => {
+        if (e.key === 'Enter') {
+            e.stopPropagation();
+            ref.current?.blur();
+            setFocus(false);
+        }
+    };
+
     const toggleFocus = useMemo(() => ({
         on: () => setFocus(true),
         off: () => setFocus(false),
     }), []);
-
-    useEffect(() => {
-        ref.current?.focus();
-    }, [ref]);
 
     const onFocus = useCallback(() => {
         toggleFocus.on();
@@ -55,7 +65,7 @@ const TextInput: FC<ITextInput> = ({ value, onChange }) => {
                 opacity: 0,
             }}
             animate={{
-                y: ['10rem', '0rem'],
+                y: ['50rem', '0rem'],
                 opacity: [0, 1],
             }}
         >
@@ -69,6 +79,7 @@ const TextInput: FC<ITextInput> = ({ value, onChange }) => {
                 className={styles.textInput}
                 value={value}
                 onChange={onChangeHandler}
+                onKeyDown={onKeyDownHandler}
             />
         </motion.div>
     );

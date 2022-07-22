@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import TApi from '../api/api';
 
-export function useDescription(id: string | undefined) {
+export function useDescription(id: string | null) {
     const [result, setResult] = useState<any>([]);
     const [isComplete, setComplete] = useState(false);
     const [isLoading, setLoading] = useState(false);

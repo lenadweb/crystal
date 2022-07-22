@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import cn from 'classnames';
 import styles from './TItem.module.css';
 import DownloadButton from '../DownloadButton/DownloadButton';
-import { RootContext } from '../../../pages';
+import { ResultContext } from '../../contexts/ResultContext';
 
 interface ITItem {
     id: string;
@@ -16,13 +16,9 @@ interface ITItem {
     light?: boolean,
 }
 
-export const openSpring = { type: 'spring', stiffness: 200, damping: 30 };
-export const closeSpring = { type: 'spring', stiffness: 300, damping: 35 };
-
 const TItem:FC<ITItem> = memo(({ id, title, seeds, category, size, delay, light = true }) => {
-    const { expandedItemId, setExpandedItemId } = useContext(RootContext);
-    // const isExpanded = expandedItemId === id;
-    const openItem = useCallback(() => setExpandedItemId(id), []);
+    const { setSelectItemId } = useContext(ResultContext);
+    const openItem = useCallback(() => setSelectItemId && setSelectItemId(id), []);
 
     return (
         <motion.div

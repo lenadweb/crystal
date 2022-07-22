@@ -1,17 +1,17 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { FC, memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
 import cn from 'classnames';
 import styles from './Details.module.css';
 import { useDescription } from '../../hooks/useDescription';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
-import { RootContext } from '../../../pages';
 import Spinner from '../../Icons/Spinner';
 import CloseIcon from '../../Icons/CloseIcon';
-import { useTheme } from '../../hooks/useTheme';
 import Accordion from '../Accordion/Accordion';
 
 interface IDetails {
-    id: string | undefined;
+    id: string | null;
+    isLightTheme: boolean;
+    setSelectItemId: (id: string | null) => void;
 }
 
 const variants = {
@@ -19,18 +19,16 @@ const variants = {
     hidden: { opacity: 0 },
 };
 
-const Details:FC<IDetails> = memo(({ id }) => {
+const Details:FC<IDetails> = memo(({ id, isLightTheme, setSelectItemId }) => {
     const { isLoading, isComplete, data } = useDescription(id);
-    const { setExpandedItemId } = useContext(RootContext);
     const [isExpanded, setExpanded] = useState(false);
     const ref = useRef(null);
-    const { isLightTheme } = useTheme();
 
     const toggleExpanded = useMemo(() => ({
         on: () => setExpanded(true),
         off: () => {
             setExpanded(false);
-            setExpandedItemId(null);
+            setSelectItemId(null);
         },
     }), [setExpanded, id]);
 
@@ -87,7 +85,7 @@ const Details:FC<IDetails> = memo(({ id }) => {
                                                 )
                                             }
                                             {
-                                                data?.collapses?.map((item: any) => <Accordion header={item.header} content={item.content} />)
+                                                data?.collapses?.map((item: any, index: number) => <Accordion key={index} header={item.header} content={item.content} />)
                                             }
                                         </motion.div>
                                     )

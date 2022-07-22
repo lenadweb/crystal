@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import cn from 'classnames';
 import { useTheme } from '../../hooks/useTheme';
@@ -8,7 +8,7 @@ import styles from './ToggleTheme.module.css';
 import MoonIcon from '../../Icons/MoonIcon';
 import SunIcon from '../../Icons/SunIcon';
 
-const ToggleTheme = () => {
+const ToggleTheme = memo(() => {
     const { isLightTheme, toggleTheme } = useTheme();
 
     useEffect(() => {
@@ -16,8 +16,8 @@ const ToggleTheme = () => {
         else document.body.classList.add(homeStyles.bodyDark);
 
         return () => {
-            if (isLightTheme) document.body.classList.remove(homeStyles.bodyLight);
-            else document.body.classList.remove(homeStyles.bodyDark);
+            if (document.body.classList.contains(homeStyles.bodyLight)) document.body.classList.remove(homeStyles.bodyLight);
+            if (document.body.classList.contains(homeStyles.bodyDark)) document.body.classList.remove(homeStyles.bodyDark);
         };
     }, [isLightTheme]);
 
@@ -47,6 +47,6 @@ const ToggleTheme = () => {
             </button>
         </div>
     );
-};
+});
 
 export default ToggleTheme;

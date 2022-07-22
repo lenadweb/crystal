@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { AnimatePresence, motion } from 'framer-motion';
 import TextInput from '../TextInput/TextInput';
@@ -10,40 +10,34 @@ const SearchResult = dynamic(() => import('../SearchResult/SearchResult'), {
     ssr: false,
 });
 
-const Search = () => {
+const Search = memo(() => {
     const [inputValue, setInputValue] = useState('');
     const debouncedValue = useDebounce(inputValue, 500);
-    const { data, isLoading, isComplete } = useSearch(debouncedValue);
-    const isResultVisible = !!data.length && !isLoading && !!inputValue.length && debouncedValue === inputValue;
-    const isEmptyResultVisible = !data.length && isComplete && !isLoading && !!inputValue.length && debouncedValue === inputValue;
+    const { data, isLoading, isSuccess, isError } = useSearch(debouncedValue);
+    const isComplete = !!inputValue.length && debouncedValue === inputValue && isSuccess && !isLoading;
+    const isResultVisible = !!data.length && isComplete;
+    const isEmptyResultVisible = !data.length && isComplete;
+
     return (
         <div className={styles.wrapper}>
             <TextInput value={inputValue} onChange={setInputValue} />
             <AnimatePresence exitBeforeEnter>
-                {isResultVisible && (
-                    <motion.div
-                        key="results"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                    >
-                        <SearchResult data={data} />
-                    </motion.div>
-                )}
-                {isEmptyResultVisible && (
-                    <motion.div
-                        key="emptyResult"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                    >
-                        <div className={styles.emptyResult}>Ничего не найдено</div>
-                    </motion.div>
-                )}
+                <motion.div
+                    key={(isResultVisible && 'rv') || (isEmptyResultVisible && 'rev') || (isError && 'err') as string}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                >
+                    {
+                        (isResultVisible && <SearchResult data={data} />)
+                            || (isEmptyResultVisible && <div className={styles.info}>Ничего не найдено</div>)
+                            || (isError && <div className={styles.info}>Упс. Что-то сломалось</div>)
+                    }
+                </motion.div>
             </AnimatePresence>
 
         </div>
     );
-};
+});
 
 export default Search;

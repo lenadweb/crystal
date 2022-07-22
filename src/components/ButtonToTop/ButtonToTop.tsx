@@ -1,14 +1,16 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import cn from 'classnames';
 import { scrollToTop } from '../../utils';
 import styles from './ButtonToTop.module.css';
-import { useTheme } from '../../hooks/useTheme';
 import ArrowIcon from '../../Icons/ArrowIcon';
 
-const ButtonToTop:FC = () => {
+interface IButtonToTop {
+    isLightTheme: boolean;
+}
+
+const ButtonToTop:FC<IButtonToTop> = memo(({ isLightTheme }) => {
     const [isVisible, setVisible] = useState(false);
-    const { isLightTheme } = useTheme();
 
     useEffect(() => {
         const onScrollHandler = (e: any) => {
@@ -39,6 +41,6 @@ const ButtonToTop:FC = () => {
             }
         </AnimatePresence>
     );
-};
+});
 
 export default ButtonToTop;

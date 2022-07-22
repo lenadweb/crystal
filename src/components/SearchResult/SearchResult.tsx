@@ -35,7 +35,6 @@ const SearchResult:FC<ISearchResult> = ({ data }) => {
             ? sortByTypes(a[sortTarget], b[sortTarget], sortTarget)
             : sortByTypes(b[sortTarget], a[sortTarget], sortTarget)
         ));
-        console.log(nSortedData);
         return nSortedData;
     }, [data, orderDirections, sortTarget]);
 

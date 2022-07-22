@@ -10,16 +10,11 @@ class TApi {
     // }
 
     async search(q: string): Promise<TorrentItem[]> {
-        try {
-            const result = await axios({
-                url: `/api/torrents/search?q=${q}`,
-                method: 'GET',
-            });
-            return result?.data as any;
-        } catch (e) {
-            console.log(e);
-            return [];
-        }
+        const result = await axios({
+            url: `/api/torrents/search?q=${q}`,
+            method: 'GET',
+        });
+        return result?.data as any;
     }
 
     async description(id: string): Promise<TorrentItem[]> {

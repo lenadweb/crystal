@@ -57,7 +57,7 @@ const Accordion:FC<IAccordion> = ({ header, content }) => {
                                 content.images?.length > 0 ? (
                                     <div className={styles.imagesContainer}>
                                         {
-                                            content.images.map((item) => <img alt="" src={item} className={styles.image} />)
+                                            content.images.map((item) => <img alt="" key={item} src={item} className={styles.image} />)
                                         }
                                     </div>
                                 ) : (

@@ -1,13 +1,17 @@
 import {
     motion,
 } from 'framer-motion';
-import { useContext, useRef } from 'react';
+import { FC, memo, useRef } from 'react';
 import styles from './Crystal.module.css';
-import { RootContext } from '../../../pages';
+import CrystalIcon from '../../Icons/CrystalIcon';
 
-const Crystal = () => {
+interface ICrystal {
+    isLoading: boolean,
+    hasError: boolean,
+}
+
+const Crystal:FC<ICrystal> = memo(({ isLoading, hasError }) => {
     const container = useRef(null);
-    const { isLoading } = useContext(RootContext);
     return (
         <div ref={container} className={styles.wrapper}>
             <motion.div
@@ -27,14 +31,15 @@ const Crystal = () => {
                     <motion.div
                         initial={{
                             opacity: 0,
+                            y: '-10rem',
                         }}
                         transition={{
-                            duration: 0.2,
+                            duration: 0.3,
                             ease: 'easeInOut',
                         }}
                         animate={{
-                            opacity: [0, 1],
                             y: ['-10rem', '0rem'],
+                            opacity: [0, 1],
                         }}
                     >
                         <motion.div
@@ -46,7 +51,9 @@ const Crystal = () => {
                             // dragSnapToOrigin
                             dragConstraints={container}
                         >
-                            <div className={styles.crystalImage} />
+                            <div className={styles.crystalImage}>
+                                <CrystalIcon isRed={hasError} />
+                            </div>
                         </motion.div>
                     </motion.div>
                 </div>
@@ -72,6 +79,6 @@ const Crystal = () => {
             </motion.div>
         </div>
     );
-};
+});
 
 export default Crystal;

@@ -1,6 +1,6 @@
 .wrapper {
     position: fixed;
-    right: 100px;
+    right: 30px;
     bottom: 30px;
     background: #232323;
     border-radius: 10px;
@@ -16,4 +16,10 @@
 
 .wrapperLight {
     background: #ffffff;
+}
+
+@media(max-width: 880px) {
+    .wrapper {
+        display: none;
+    }
 }
