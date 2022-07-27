@@ -45,6 +45,19 @@ class TApi {
             return [];
         }
     }
+
+    async getAutoComplete(q: string) {
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: `/api/autocomplete/get?q=${q}`,
+            });
+            return response.data;
+        } catch (e) {
+            console.log(e);
+            return [];
+        }
+    }
 }
 
 export default new TApi();
