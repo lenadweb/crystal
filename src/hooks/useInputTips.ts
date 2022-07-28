@@ -28,7 +28,7 @@ const appendTipsById = (id: string, value: string) => {
                 inputTips[id] = inputTips[id].filter((item: string) => item !== value);
                 inputTips[id].push(value);
             }
-            inputTips[id] = inputTips[id].slice(0, maxLength);
+            inputTips[id] = inputTips[id].slice(-maxLength);
         } else {
             inputTips[id] = [value];
         }
