@@ -1,13 +1,16 @@
 import { useContext, useMemo } from 'react';
-import { RootContext } from '../../pages';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 export function useTheme() {
-    const { isLightTheme, setLightTheme } = useContext(RootContext);
+    const { isLightTheme, setLightTheme } = useContext(ThemeContext);
 
     const result = useMemo(() => ({
         isLightTheme,
-        toggleTheme: () => setLightTheme(!isLightTheme),
-    }), [isLightTheme]);
+        toggleTheme: () => {
+            localStorage.setItem('theme', isLightTheme ? 'dark' : 'light');
+            setLightTheme && setLightTheme(!isLightTheme);
+        },
+    }), [setLightTheme, isLightTheme]);
 
     return result;
 }

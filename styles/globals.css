@@ -18,7 +18,7 @@ time, mark, audio, video {
   font: inherit;
   color: inherit;
   scroll-behavior: smooth;
-
+  box-sizing: border-box;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -27,9 +27,9 @@ footer, header, hgroup, menu, nav, section {
   display: block;
 }
 body {
-  /*background: #ffffff;*/
-  /*transition: background 0.2s ease-in-out;*/
-  color: #181818;
+  background: #181818;
+  transition: background 0.2s ease-in-out;
+  color: #ececec;
   line-height: 1;
   font-size: 14px;
   font-family: 'Montserrat', apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -50,3 +50,29 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.post-br {
+  line-height: 8px;
+  display: block;
+  visibility: hidden;
+}
+
+.post-b {
+  font-weight: bold;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+@media (max-width: 768px) {
+  body {
+    font-size: 12px;
+  }
+}
+

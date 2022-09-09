@@ -1,8 +1,4 @@
 .wrapper {
-  min-height: 100vh;
-  min-width: 100vw;
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 
 .bodyLight {
@@ -19,4 +15,19 @@
   width: 900px;
   margin: 0 auto;
   position: relative;
+  box-sizing: border-box;
 }
+
+@media (max-width: 1000px) {
+  .container {
+    width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 16px;
+  }
+}
+

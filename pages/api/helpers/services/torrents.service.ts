@@ -1,17 +1,27 @@
-// @ts-ignore
-import RutrackerApi from 'rutracker-api';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
+import RutrackerApi from '../fork-rutracker-api';
 
 const rutracker = new RutrackerApi();
 
-const authOptions = { username: process.env.RTUSERNAE, password: process.env.RTPASSWORD };
+const authOptions = { username: process.env.RT_USERNAME, password: process.env.RT_PASSWORD };
 
 class TorrentsService {
     async search(q:string) {
         const login = await rutracker.login(authOptions);
         if (login) {
-            const resultSearch = await rutracker.search({ query: q, sort: 'size' });
+            const resultSearch = await rutracker.search({ query: q, sort: 'seeds' } as any);
+            return resultSearch;
+        }
+        return {
+            error: 'auth error',
+        };
+    }
+
+    async description(id: string) {
+        const login = await rutracker.login(authOptions);
+        if (login) {
+            const resultSearch = await rutracker.description({ id });
             return resultSearch;
         }
         return {
@@ -34,7 +44,7 @@ class TorrentsService {
                         'Accept-language': 'en',
                     },
                     responseType: 'stream',
-                });
+                } as any);
                 result.data.pipe(res);
             } else {
                 res.json({

@@ -1,5 +1,5 @@
 .wrapper {
-    margin-top: 50px;
+    margin-top: 24px;
 }
 
 .crystal {
@@ -9,11 +9,11 @@
 }
 
 .crystalImage {
-    background: url('/assets/icons/diamond.svg');
     height: 120px;
     width: 120px;
-    background-size: contain;
 }
+
+.crystalImage path { transition: fill 0.4s ease-in-out; }
 
 .title {
     width: 120px;

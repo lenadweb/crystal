@@ -1,47 +1,47 @@
 import {
     motion,
 } from 'framer-motion';
-import { useContext, useRef } from 'react';
+import { FC, memo, useRef } from 'react';
 import styles from './Crystal.module.css';
-import { RootContext } from '../../../pages';
+import CrystalIcon from '../../Icons/CrystalIcon';
 
-const variants = {
-    default: {},
-    loading: {
-        y: ['30px', '0px'],
-    },
-};
+interface ICrystal {
+    isLoading: boolean,
+    hasError: boolean,
+}
 
-const Crystal = () => {
+const Crystal:FC<ICrystal> = memo(({ isLoading, hasError }) => {
     const container = useRef(null);
-    const { isLoading } = useContext(RootContext);
     return (
-        <div ref={container} className={styles.wrapper}>
+        <div className={styles.wrapper}>
             <motion.div
-                transition={{
+                transition={isLoading ? {
                     duration: 0.25,
                     yoyo: Infinity,
                     ease: 'easeInOut',
-                }}
+                } : undefined}
                 initial={{
                     y: '30px',
                 }}
-                variants={variants}
-                animate={isLoading ? 'loading' : 'default'}
+                animate={isLoading ? {
+                    y: ['30px', '0px'],
+                } : undefined}
             >
                 <div>
                     <motion.div
                         initial={{
                             opacity: 0,
+                            y: '-10rem',
                         }}
                         transition={{
-                            duration: 0.2,
+                            duration: 0.3,
                             ease: 'easeInOut',
                         }}
                         animate={{
-                            opacity: [0, 1],
                             y: ['-10rem', '0rem'],
+                            opacity: [0, 1],
                         }}
+                        ref={container}
                     >
                         <motion.div
                             className={styles.crystal}
@@ -49,10 +49,11 @@ const Crystal = () => {
                             dragPropagation
                             dragElastic={1}
                             whileDrag={{ scale: 1.2 }}
-                            // dragSnapToOrigin
                             dragConstraints={container}
                         >
-                            <div className={styles.crystalImage} />
+                            <div className={styles.crystalImage}>
+                                <CrystalIcon isRed={hasError} />
+                            </div>
                         </motion.div>
                     </motion.div>
                 </div>
@@ -78,6 +79,6 @@ const Crystal = () => {
             </motion.div>
         </div>
     );
-};
+});
 
 export default Crystal;

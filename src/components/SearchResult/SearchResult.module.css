@@ -2,6 +2,11 @@
     margin-top: 30px;
 }
 
-.header {
+.emptyResult {
+    text-align: center;
+}
 
+.header {
+    position: relative;
+    z-index: 10;
 }

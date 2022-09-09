@@ -35,7 +35,6 @@ const SearchResult:FC<ISearchResult> = ({ data }) => {
             ? sortByTypes(a[sortTarget], b[sortTarget], sortTarget)
             : sortByTypes(b[sortTarget], a[sortTarget], sortTarget)
         ));
-        console.log(nSortedData);
         return nSortedData;
     }, [data, orderDirections, sortTarget]);
 
@@ -51,17 +50,25 @@ const SearchResult:FC<ISearchResult> = ({ data }) => {
             })}
             >
                 <SortButton onClick={() => onChangeSortTarget('title')} label="Название" direction={sortTarget === 'title' ? orderDirections : undefined} />
-                <SortButton onClick={() => onChangeSortTarget('category')} label="Категория" direction={sortTarget === 'category' ? orderDirections : undefined} />
+                <SortButton className={TItemStyles.category} onClick={() => onChangeSortTarget('category')} label="Категория" direction={sortTarget === 'category' ? orderDirections : undefined} />
                 <SortButton onClick={() => onChangeSortTarget('size')} label="Размер" direction={sortTarget === 'size' ? orderDirections : undefined} />
                 <SortButton onClick={() => onChangeSortTarget('seeds')} label="Сиды" direction={sortTarget === 'seeds' ? orderDirections : undefined} />
             </div>
             {
                 sortedData.map((item, index) => (
                     <motion.div
-                        key={item.id}
+                        key={item.id + 1}
                         layout
                     >
-                        <TItem item={item} delay={index} light={isLightTheme} />
+                        <TItem
+                            id={item.id}
+                            title={item.title}
+                            category={item.category}
+                            seeds={item.seeds}
+                            size={item.size}
+                            delay={index}
+                            light={isLightTheme}
+                        />
                     </motion.div>
                 ))
             }

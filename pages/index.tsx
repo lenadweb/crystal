@@ -1,45 +1,57 @@
 import type { NextPage } from 'next';
-import { createContext, FC, memo, useEffect, useMemo, useState } from 'react';
+import { FC, memo, useEffect, useMemo, useState } from 'react';
 import styles from '../styles/Home.module.css';
 import Search from '../src/components/Search/Search';
 import Crystal from '../src/components/Crystal/Crystal';
 import ButtonToTop from '../src/components/ButtonToTop/ButtonToTop';
-
-export const RootContext = createContext({
-    isLoading: false,
-    setLoading: null,
-    isLightTheme: true,
-} as any);
+import ToggleTheme from '../src/components/ToggleTheme/ToggleTheme';
+import Details from '../src/components/Details/Details';
+import { ThemeContext } from '../src/contexts/ThemeContext';
+import { ResultContext } from '../src/contexts/ResultContext';
+import { SearchContext } from '../src/contexts/SearchContext';
 
 const PageContent:FC = memo(() => {
     const [isLoading, setLoading] = useState(false);
+    const [hasError, setError] = useState(false);
     const [isLightTheme, setLightTheme] = useState(false);
-
-    const appState = useMemo(() => ({
-        isLoading,
-        setLoading,
-        isLightTheme,
-        setLightTheme,
-    }), [isLoading]);
+    const [selectItemId, setSelectItemId] = useState<string | null>(null);
 
     useEffect(() => {
-        if (isLightTheme) document.body.classList.add(styles.bodyLight);
-        else document.body.classList.add(styles.bodyDark);
+        const sessionTheme = (typeof window !== 'undefined') ? localStorage.getItem('theme') === 'light' : false;
+        setLightTheme(sessionTheme);
+    }, []);
 
-        return () => {
-            if (isLightTheme) document.body.classList.remove(styles.bodyLight);
-            else document.body.classList.remove(styles.bodyDark);
-        };
-    }, [isLightTheme]);
+    const themeState = useMemo(() => ({
+        isLightTheme,
+        setLightTheme,
+    }), [isLightTheme]);
+
+    const searchState = useMemo(() => ({
+        isLoading,
+        setLoading,
+        hasError,
+        setError,
+    }), [isLoading, hasError]);
+
+    const resultState = useMemo(() => ({
+        selectItemId,
+        setSelectItemId,
+    }), [selectItemId]);
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <RootContext.Provider value={appState}>
-                    <Crystal />
-                    <Search />
-                </RootContext.Provider>
-                <ButtonToTop />
+                <ThemeContext.Provider value={themeState}>
+                    <SearchContext.Provider value={searchState}>
+                        <ResultContext.Provider value={resultState}>
+                            <ToggleTheme />
+                            <Crystal isLoading={isLoading} hasError={hasError} />
+                            <Search />
+                            <Details id={selectItemId} setSelectItemId={setSelectItemId} isLightTheme={isLightTheme} />
+                            <ButtonToTop isLightTheme={isLightTheme} />
+                        </ResultContext.Provider>
+                    </SearchContext.Provider>
+                </ThemeContext.Provider>
             </div>
         </div>
     );
