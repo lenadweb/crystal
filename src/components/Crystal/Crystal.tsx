@@ -13,7 +13,7 @@ interface ICrystal {
 const Crystal:FC<ICrystal> = memo(({ isLoading, hasError }) => {
     const container = useRef(null);
     return (
-        <div ref={container} className={styles.wrapper}>
+        <div className={styles.wrapper}>
             <motion.div
                 transition={isLoading ? {
                     duration: 0.25,
@@ -41,6 +41,7 @@ const Crystal:FC<ICrystal> = memo(({ isLoading, hasError }) => {
                             y: ['-10rem', '0rem'],
                             opacity: [0, 1],
                         }}
+                        ref={container}
                     >
                         <motion.div
                             className={styles.crystal}
@@ -48,7 +49,6 @@ const Crystal:FC<ICrystal> = memo(({ isLoading, hasError }) => {
                             dragPropagation
                             dragElastic={1}
                             whileDrag={{ scale: 1.2 }}
-                            // dragSnapToOrigin
                             dragConstraints={container}
                         >
                             <div className={styles.crystalImage}>
