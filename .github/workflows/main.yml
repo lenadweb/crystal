@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [action]
+    branches: [main]
   pull_request:
-    branches: [action]
+    branches: [main]
 
   workflow_dispatch:
 
@@ -20,7 +20,7 @@ jobs:
 
       - name: get-npm-version
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@prod
+        uses: martinbeentjes/npm-get-version-action@master
 
       - name: install and build
         run: yarn install
@@ -31,9 +31,18 @@ jobs:
       - name: crate directory
         run: mkdir upload
 
+      - name: Publish package on NPM 📦
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - uses: actions/download-artifact@v2
       - name: Create zip
-        run: zip ./upload/${{steps.package-version.outputs.current-version}}.zip ./release/* -r
+        run: zip ./upload/${{steps.package-version.outputs.current-version}}.zip ./.next/* -r
 
       - name: Check file existence
         id: check_files
