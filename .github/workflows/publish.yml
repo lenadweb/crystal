@@ -1,13 +1,12 @@
-name: PUBLISH NPM
+name: Publish to NPM
 
 on:
   push:
-    branches: [npm]
+    branches:
+      - npm
   pull_request:
-    branches: [npm]
-
-  workflow_dispatch:
-
+    branches:
+      - npm
 
 jobs:
   publish:
@@ -16,30 +15,22 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
         with:
-          fetch-depth: 0
+          node-version: '14'
+          registry-url: https://registry.npmjs.org/
 
       - name: patch version
-        run: yarn version --patch
+        run: npm version --no-git-tag-version patch
 
       - name: commit new version
         uses: EndBug/add-and-commit@v8
         with:
           default_author: github_actions
 
-      - name: install
-        run: yarn install
-
-      - name: build
-        run: yarn build
-
-      - name: publish package on npm
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-          registry-url: 'https://registry.npmjs.org'
-      - run: yarn publish --access public
-        working-directory: build
+      - name: publish package to npm
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
