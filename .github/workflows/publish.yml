@@ -39,12 +39,13 @@ jobs:
 
       - name: pushing
         run: |
-          git merge -X theirs origin/npm --allow-unrelated-histories
+          git merge -X theirs npm --allow-unrelated-histories
           git push --follow-tags
 
       - name: checkout npm
         uses: actions/checkout@v2
         with:
+          clean: false,
           ref: npm
 
       - name: publish package to npm
