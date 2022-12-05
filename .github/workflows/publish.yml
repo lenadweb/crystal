@@ -21,13 +21,32 @@ jobs:
           node-version: '14'
           registry-url: https://registry.npmjs.org/
 
-      - name: patch version
-        run: npm version patch
+      - name: get current version
+          id: read_property
+          uses: ashley-taylor/read-json-property-action@v1.0
+          with:
+            path: ./package.json
+            property: version
 
-      - name: commit new version
+      - name: get patched version
+        id: new_version
+        uses: jessicalostinspace/bump-semantic-version-action@v1.0.1
+        with:
+          semantic-version: ${{ steps.read_property.outputs.value }}
+          version-type: 'PATCH'
+
+      - name: update package.json
+        uses: jossef/action-set-json-field@v2
+        with:
+          file: ./package.json
+          field: version
+          value: ${{ steps.new_version.outputs.bumped-semantic-version }}
+
+      - name: Commit new version
         uses: EndBug/add-and-commit@v8
         with:
           default_author: github_actions
+          tag: 'v{{teps.new_version.outputs.bumped-semantic-version}}'
 
       - name: publish package to npm
         run: npm publish
