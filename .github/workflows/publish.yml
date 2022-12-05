@@ -46,7 +46,11 @@ jobs:
         uses: EndBug/add-and-commit@v8
         with:
           default_author: github_actions
-          tag: 'v{{teps.new_version.outputs.bumped-semantic-version}}'
+          tag: v${{ steps.new_version.outputs.bumped-semantic-version }}
+
+
+      - name: patch version
+        run: npm version ${{ steps.new_version.outputs.bumped-semantic-version }}
 
       - name: publish package to npm
         run: npm publish
