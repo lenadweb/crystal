@@ -22,9 +22,9 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: set name author
-          run: |
-            system('git config --global user.email "git_bot@example.com")
-            system('git config --global user.name "Github bot")
+        run: |
+          system('git config --global user.email "git_bot@example.com")
+          system('git config --global user.name "Github bot")
 
       - name: patch version
         run: npm version patch
