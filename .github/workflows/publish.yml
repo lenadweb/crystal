@@ -27,7 +27,7 @@ jobs:
           git config user.name "github-actions[bot]"
 
       - name: patch version
-        run: npm version patch
+        run: npm version patch --git-tag-version
 
       - name: publish package to npm
         run: npm publish
