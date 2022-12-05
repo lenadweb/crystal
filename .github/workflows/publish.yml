@@ -32,10 +32,10 @@ jobs:
       - name: patch version
         run: npm version patch --git-tag-version
 
-      - name: checkout master
-        uses: actions/checkout@v2
-        with:
-          ref: main
+      - name: checkout main
+        run: |
+          git fetch
+          git checkout main
 
       - name: pushing
         run: |
@@ -43,10 +43,9 @@ jobs:
           git push --follow-tags
 
       - name: checkout npm
-        uses: actions/checkout@v2
-        with:
-          clean: false,
-          ref: npm
+        run: |
+            git fetch
+            git checkout npm
 
       - name: publish package to npm
         run: npm publish
