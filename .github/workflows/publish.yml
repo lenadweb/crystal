@@ -48,6 +48,10 @@ jobs:
           default_author: github_actions
           tag: v${{ steps.new_version.outputs.bumped-semantic-version }}
 
+
+      - name: patch version
+        run: npm version ${{ steps.new_version.outputs.bumped-semantic-version }}
+
       - name: publish package to npm
         run: npm publish
         env:
