@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: checkout npm
         uses: actions/checkout@v2
+        with:
+          ref: npm
 
       - uses: actions/setup-node@v2
         with:
@@ -30,14 +32,6 @@ jobs:
       - name: patch version
         run: npm version patch --git-tag-version
 
-      - name: publish package to npm
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: pushing
-        run: git push --follow-tags
-
       - name: checkout master
         uses: actions/checkout@v2
         with:
@@ -45,6 +39,19 @@ jobs:
 
       - name: pushing
         run: |
-          git merge origin/npm --allow-unrelated-histories
+          git merge -X theirs origin/npm --allow-unrelated-histories
           git push --follow-tags
+
+      - name: checkout npm
+        uses: actions/checkout@v2
+        with:
+          ref: npm
+
+      - name: publish package to npm
+        run: npm publish
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: pushing
+        run: git push --follow-tags
 
