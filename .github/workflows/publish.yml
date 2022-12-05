@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - npm
-  pull_request:
-    types: [closed]
-    branches:
-      - npm
 
 jobs:
   publish:
