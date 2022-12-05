@@ -1,15 +1,13 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
   workflow_dispatch:
+    inputs:
+      version:
+        required: true
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,18 +16,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
-
       - name: install and build
         run: yarn install
 
       - name: build
         run: yarn build
-
-      - name: crate directory
-        run: mkdir upload
 
       - name: Publish package on NPM 📦
         uses: actions/setup-node@v1
@@ -39,14 +30,4 @@ jobs:
       - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - uses: actions/download-artifact@v2
-      - name: Create zip
-        run: zip ./upload/${{steps.package-version.outputs.current-version}}.zip ./.next/* -r
-
-      - name: Check file existence
-        id: check_files
-        uses: andstor/file-existence-action@v1
-        with:
-          files: './upload/${{steps.package-version.outputs.current-version}}.zip'
 
