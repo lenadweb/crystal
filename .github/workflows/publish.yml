@@ -5,6 +5,7 @@ on:
     branches:
       - npm
   pull_request:
+    types: [closed]
     branches:
       - npm
 
@@ -13,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout repository
+      - name: checkout npm
         uses: actions/checkout@v2
 
       - uses: actions/setup-node@v2
@@ -36,4 +37,14 @@ jobs:
 
       - name: pushing
         run: git push --follow-tags
+
+      - name: checkout master
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: pushing
+        run: |
+          git merge npm
+          git push --follow-tags
 
