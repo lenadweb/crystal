@@ -33,7 +33,9 @@ jobs:
         run: npm version patch --git-tag-version
 
       - name: checkout main
-        run: git checkout main
+        run: |
+          git fetch
+          git checkout main
 
       - name: pushing
         run: |
@@ -41,7 +43,9 @@ jobs:
           git push --follow-tags
 
       - name: checkout npm
-        run: git checkout npm
+        run: |
+            git fetch
+            git checkout npm
 
       - name: publish package to npm
         run: npm publish
