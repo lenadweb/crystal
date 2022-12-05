@@ -45,6 +45,6 @@ jobs:
 
       - name: pushing
         run: |
-          git merge npm
+          git merge origin/npm --allow-unrelated-histories
           git push --follow-tags
 
