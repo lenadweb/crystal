@@ -1,3 +1,3 @@
 ### Crystal - simple search for everything
 
-demo: 
+demo: https://cryst.vercel.app
